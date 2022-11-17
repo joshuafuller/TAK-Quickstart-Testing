@@ -21,6 +21,13 @@ else
     exit
 fi
 
+#Update apt repository
+apt update
+apt upgrade -y
+
+#clear screen
+clear
+
 # Iterate through the list of packages
 #  If the package is not installed, install it
 #  If the package is installed, skip it
@@ -41,7 +48,8 @@ do
     fi
 done
 
-
+# Clear the screen
+clear
 
 #Download atakhq tak-server-install-scripts while checking for errors
 echo "Downloading atakhq tak-server-install-scripts"
@@ -60,3 +68,4 @@ fi
 cd tak-server-install-scripts
 chmod +x *
 ./localInstallScript.sh
+
