@@ -21,12 +21,19 @@ else
     exit
 fi
 
+echo "#############################################"
+echo "Updating apt"
+echo "#############################################"
+
+
 #Update apt repository
 apt update
 apt upgrade -y
 
-#clear screen
-clear
+echo "#############################################"
+echo "Installing packages"
+echo "#############################################"
+
 
 # Iterate through the list of packages
 #  If the package is not installed, install it
@@ -41,19 +48,23 @@ packages=(docker-compose unzip wget nano openssl git net-tools)
 for package in "${packages[@]}"
 do
     if dpkg -s $package >/dev/null 2>&1; then
-        echo "$package is already installed"
+        echo "------------> $package is already installed"
     else
-        echo "Installing $package"
+        echo "------------> Installing $package"
         apt-get install $package -y
     fi
 done
 
-# Clear the screen
-clear
+echo "#############################################"
+echo "Cloning TAK scripts"
+echo "#############################################"
+
+
 
 #Download atakhq tak-server-install-scripts while checking for errors
 echo "Downloading atakhq tak-server-install-scripts"
 git clone https://github.com/atakhq/tak-server-install-scripts.git
+
 
 #Check if folder was created
 if [ -d "tak-server-install-scripts" ]; then
@@ -62,6 +73,20 @@ else
     echo "tak-server-install-scripts failed to download"
     exit
 fi
+
+echo "#############################################"
+echo "Pulling TAK Server Docker images"
+echo "#############################################"
+
+# Prompt the user for the Google Drive link to the TAK Server Docker images
+echo "Please enter the Google Drive link to the TAK Server Docker images"
+echo "Example: https://drive.google.com/file/d/1a-7NZgEXMKhbYPTOqTzrTVebrtqJCOCs/view?usp=share_link"
+read -p "Google Drive link: " gdrive_link
+
+# Download the TAK Server Docker images
+echo "Downloading TAK Server Docker images"
+wget -O tak-server-docker-images.zip $gdrive_link
+
 
 
 #Change directory to tak-server-install-scripts, chmod +x * and run ./localInstallScript.sh
