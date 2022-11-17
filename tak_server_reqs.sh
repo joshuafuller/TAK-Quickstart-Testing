@@ -74,21 +74,10 @@ else
     exit
 fi
 
+# Call the next script
 echo "#############################################"
-echo "Pulling TAK Server Docker images"
+echo "Calling ./localInstallScript.sh"
 echo "#############################################"
-
-# Prompt the user for the Google Drive link to the TAK Server Docker images
-echo "Please enter the Google Drive link to the TAK Server Docker images"
-echo "Example: https://drive.google.com/file/d/1a-7NZgEXMKhbYPTOqTzrTVebrtqJCOCs/view?usp=share_link"
-read -p "Google Drive link: " gdrive_link
-
-# Download the TAK Server Docker images
-echo "Downloading TAK Server Docker images"
-wget -O tak-server-docker-images.zip $gdrive_link
-
-
-
 #Change directory to tak-server-install-scripts, chmod +x * and run ./localInstallScript.sh
 cd tak-server-install-scripts
 chmod +x *
